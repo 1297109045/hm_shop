@@ -1,25 +1,83 @@
 <template>
-<view>首页</view>
+    <view>
+        <!-- 轮播图 -->
+        <swiper indicator-dots circular>
+            <swiper-item wx:for="{{swiperData}}" wx:key="index">
+                <navigator url="{{item.navigator_url}}">
+                    <image src="{{item.image_src}}"></image>
+                </navigator>
+            </swiper-item>
+        </swiper>
+        <!-- 分类的结构 -->
+        <view class="cate_box">
+            <navigator hover-class="none" wx:key="index" wx:for="{{cateData}}" url="/pages/tabs/cates" open-type="switchTab">
+                <image src="{{item.image_src}}"></image>
+            </navigator>
+        </view>
+        <!-- 楼层 -->
+        <view class="floor_box">
+            <view class="floor_item" wx:for="{{floorData}}" wx:key="index">
+                <image class="tit" src="{{item.floor_title.image_src}}"></image>
+                <view class="img_box">
+                    <image wx:for="{{item.product_list}}" src="{{item.image_src}}" wx:key="index"></image>
+                </view>
+            </view>
+        </view>
+    </view>
 </template>
 
 <script>
 
-import wepy from 'wepy'
+    import wepy from 'wepy'
+    import mixHome from '../../mixins/tabs/home.js'
 
-export default class Home extends wepy.page {
-    data = {
+    export default class Home extends wepy.page {
+        mixins=[mixHome]
+       
     }
-
-    config = {
-    }
-
-    methods = {
-
-    }
-}
 
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
+    swiper {
+        height: 350rpx;
 
+        navigator,
+        image {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .cate_box{
+        display: flex;
+        padding:40rpx 0;
+        navigator{
+            width:100%;
+            text-align:center;
+            image{
+                width: 128rpx;
+                height:140rpx
+            }
+        }
+    }
+    .floor_box{
+  .floor_item{
+    .tit{
+      height: 50rpx;
+      width: 640rpx;
+    }
+    .img_box{
+        image{
+            height:190rpx;
+            float:left;
+            margin:20rpx;
+            width:210rpx;
+        }
+        image:nth-child(1){
+            height:410rpx
+        }
+    }
+
+  }
+}
 </style>
